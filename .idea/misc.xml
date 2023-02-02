@@ -5,6 +5,11 @@
       <map>
         <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/activity_main.xml" value="0.3145833333333333" />
         <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/category_item.xml" value="0.2722222222222222" />
+        <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/fragment_category.xml" value="0.3145833333333333" />
+        <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/fragment_detail_wallpaper.xml" value="0.33177083333333335" />
+        <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/fragment_splash.xml" value="0.33177083333333335" />
+        <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/fragment_wallpaper_list.xml" value="0.33177083333333335" />
+        <entry key="..\:/Android/Wallpaper/app/src/main/res/layout/wallpaper_item.xml" value="0.3307291666666667" />
       </map>
     </option>
   </component>
