@@ -29,11 +29,8 @@ class WallpaperListFragment : Fragment() {
 
         arguments?.let {
             categoryName = it.getString(ARG_PARAM1)
-            viewModel.loadWallpaper(categoryName!!)
         }
-
-
-
+        viewModel.loadWallpaper(categoryName!!)
     }
 
     override fun onCreateView(
@@ -49,6 +46,12 @@ class WallpaperListFragment : Fragment() {
         binding.wallpaperRecyclerView.adapter = adapter
         viewModel.wallpapers.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.wallpaperSwipeRefreshLayout.isRefreshing = it
+        }
+        binding.wallpaperSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.loadWallpaper(categoryName!!)
         }
     }
 

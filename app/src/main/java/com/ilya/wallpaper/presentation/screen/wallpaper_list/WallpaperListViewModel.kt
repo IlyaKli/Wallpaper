@@ -18,9 +18,14 @@ class WallpaperListViewModel : ViewModel() {
     private val _wallpapers = MutableLiveData<List<Wallpaper>>()
     val wallpapers: LiveData<List<Wallpaper>> = _wallpapers
 
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading: LiveData<Boolean> = _loading
+
     fun loadWallpaper(name: String) {
+        _loading.value = true
         viewModelScope.launch {
             _wallpapers.value = loadWallpaperUseCase(name)
+            _loading.value = false
         }
     }
 }
