@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.ilya.wallpaper.R
 import com.ilya.wallpaper.databinding.FragmentCategoryBinding
 import com.ilya.wallpaper.presentation.adapter.category.CategoryRAdapter
+import com.ilya.wallpaper.presentation.screen.wallpaper_list.WallpaperListFragment
 
 
 class CategoryFragment : Fragment() {
@@ -36,8 +37,16 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.categoryRecyclerView.adapter = adapter
         adapter.categoryClickListener = {
+            launchFragment(it.name)
             Log.d("clickCategory", it.toString())
         }
+    }
+
+    private fun launchFragment(name: String) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainerView, WallpaperListFragment.newInstance(name))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
