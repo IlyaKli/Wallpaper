@@ -29,6 +29,7 @@ class WallpaperRAdapter : ListAdapter<Wallpaper, WallpaperViewHolder>(WallpaperD
         with(holder.binding) {
             Glide.with(wallpaperImageView)
                 .load(wallpaper.webImageURL)
+                .centerCrop()
                 .into(wallpaperImageView)
             wallpaperCardView.setOnClickListener {
                 wallpaperClickListener?.invoke(wallpaper)

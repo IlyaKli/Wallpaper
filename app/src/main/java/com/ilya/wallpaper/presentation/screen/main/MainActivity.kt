@@ -3,6 +3,7 @@ package com.ilya.wallpaper.presentation.screen.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ilya.wallpaper.R
+import com.ilya.wallpaper.presentation.screen.spalsh.SplashFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,10 +13,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun launchFragment() {
-        supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainerView, CategoryFragment.newInstance())
-            .addToBackStack(null)
+            .replace(R.id.mainContainerView, SplashFragment.newInstance())
             .commit()
     }
 }

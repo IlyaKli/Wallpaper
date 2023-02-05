@@ -11,6 +11,7 @@ import com.ilya.wallpaper.databinding.FragmentCategoryBinding
 import com.ilya.wallpaper.databinding.FragmentWallpaperListBinding
 import com.ilya.wallpaper.presentation.adapter.category.CategoryRAdapter
 import com.ilya.wallpaper.presentation.adapter.wallpaper.WallpaperRAdapter
+import com.ilya.wallpaper.presentation.screen.wallpaper_detail.DetailWallpaperFragment
 
 class WallpaperListFragment : Fragment() {
 
@@ -53,6 +54,16 @@ class WallpaperListFragment : Fragment() {
         binding.wallpaperSwipeRefreshLayout.setOnRefreshListener {
             viewModel.loadWallpaper(categoryName!!)
         }
+        adapter.wallpaperClickListener = {
+            launchFragment(it.largeImageURL)
+        }
+    }
+
+    private fun launchFragment(imageURL: String) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainerView, DetailWallpaperFragment.newInstance(imageURL))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
