@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -27,15 +28,8 @@ class DetailWallpaperFragment : Fragment() {
     private val binding: FragmentDetailWallpaperBinding
         get() = _binding ?: throw RuntimeException("FragmentDetailWallpaperBinding == null")
 
-
-    private var imageURL: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            imageURL = it.getString(ARG_IMAGE_URL)
-        }
-    }
+    private val args by navArgs<DetailWallpaperFragmentArgs>()
+    private val imageURL by lazy { args.imageURL }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,19 +96,5 @@ class DetailWallpaperFragment : Fragment() {
         val path = Images.Media.insertImage(context.contentResolver,
             image, "Title", null)
         return Uri.parse(path)
-    }
-
-
-    companion object {
-
-        private const val ARG_IMAGE_URL = "image_URL"
-
-        @JvmStatic
-        fun newInstance(imageURL: String) =
-            DetailWallpaperFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_IMAGE_URL, imageURL)
-                }
-            }
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ilya.wallpaper.presentation.screen.spalsh.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.ilya.wallpaper.presentation.screen.main.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_wallpaperListFragment"
+            app:destination="@id/wallpaperListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wallpaperListFragment"
+        android:name="com.ilya.wallpaper.presentation.screen.wallpaper_list.WallpaperListFragment"
+        android:label="fragment_wallpaper_list"
+        tools:layout="@layout/fragment_wallpaper_list" >
+        <action
+            android:id="@+id/action_wallpaperListFragment_to_detailWallpaperFragment2"
+            app:destination="@id/detailWallpaperFragment2" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailWallpaperFragment2"
+        android:name="com.ilya.wallpaper.presentation.screen.wallpaper_detail.DetailWallpaperFragment"
+        android:label="fragment_detail_wallpaper"
+        tools:layout="@layout/fragment_detail_wallpaper" >
+        <argument
+            android:name="imageURL"
+            app:argType="string" />
+    </fragment>
+</navigation>

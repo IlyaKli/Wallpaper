@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.ilya.wallpaper.domain.model.Wallpaper
 import kotlinx.coroutines.launch
 
-class WallpaperListViewModel : ViewModel() {
+class WallpaperListViewModel(private val categoryName: String) : ViewModel() {
 
     val repository = WallpaperRepositoryImpl()
 
@@ -18,13 +18,18 @@ class WallpaperListViewModel : ViewModel() {
     private val _wallpapers = MutableLiveData<List<Wallpaper>>()
     val wallpapers: LiveData<List<Wallpaper>> = _wallpapers
 
-    private val _loading = MutableLiveData<Boolean>(true)
+    private val _loading = MutableLiveData(true)
     val loading: LiveData<Boolean> = _loading
 
-    fun loadWallpaper(name: String) {
+    init {
+        loadWallpaper()
+    }
+
+    fun loadWallpaper() {
         _loading.value = true
         viewModelScope.launch {
-            _wallpapers.value = loadWallpaperUseCase(name)
+            _wallpapers.value = loadWallpaperUseCase(categoryName)
+                ?: throw RuntimeException("Category name == null")
             _loading.value = false
         }
     }

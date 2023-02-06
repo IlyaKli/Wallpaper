@@ -1,18 +1,14 @@
 package com.ilya.wallpaper.presentation.screen.spalsh
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.ilya.wallpaper.R
-import com.ilya.wallpaper.databinding.FragmentDetailWallpaperBinding
 import com.ilya.wallpaper.databinding.FragmentSplashBinding
-import com.ilya.wallpaper.presentation.screen.main.CategoryFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class SplashFragment : Fragment() {
 
@@ -20,31 +16,30 @@ class SplashFragment : Fragment() {
     private val binding: FragmentSplashBinding
         get() = _binding ?: throw RuntimeException("FragmentSplashBinding == null")
 
+    private val scope by lazy { CoroutineScope(Dispatchers.Main.immediate) }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CoroutineScope(Dispatchers.Main.immediate).launch {
+        scope.launch {
             delay(1000)
             launchFragment()
         }
     }
 
-    private fun launchFragment() {
-        requireActivity().supportFragmentManager.popBackStack()
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainerView, CategoryFragment.newInstance())
-            .commit()
+    override fun onStop() {
+        super.onStop()
+        scope.cancel()
     }
 
-    companion object {
-        fun newInstance() = SplashFragment()
+    private fun launchFragment() {
+        findNavController().navigate(R.id.action_splashFragment_to_categoryFragment)
     }
 }
