@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.ilya.wallpaper.presentation.screen.main.CategoryFragment"
+        android:name="com.ilya.wallpaper.presentation.screen.category.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" >
         <action

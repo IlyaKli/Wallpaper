@@ -1,4 +1,4 @@
-package com.ilya.wallpaper.presentation.screen
+package com.ilya.wallpaper.presentation.view_model_factory
 
 
 import androidx.lifecycle.ViewModel

@@ -35,5 +35,8 @@ class WallpaperRAdapter : ListAdapter<Wallpaper, WallpaperViewHolder>(WallpaperD
                 wallpaperClickListener?.invoke(wallpaper)
             }
         }
+        if (position == currentList.lastIndex - 6) {
+            onReachEndListener?.invoke()
+        }
     }
 }

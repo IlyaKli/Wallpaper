@@ -21,6 +21,9 @@ class WallpaperListViewModel(private val categoryName: String) : ViewModel() {
     private val _loading = MutableLiveData(true)
     val loading: LiveData<Boolean> = _loading
 
+    private var pageCount = 1
+    private val wallpaperList = mutableListOf<Wallpaper>()
+
     init {
         loadWallpaper()
     }
@@ -28,8 +31,9 @@ class WallpaperListViewModel(private val categoryName: String) : ViewModel() {
     fun loadWallpaper() {
         _loading.value = true
         viewModelScope.launch {
-            _wallpapers.value = loadWallpaperUseCase(categoryName)
-                ?: throw RuntimeException("Category name == null")
+            wallpaperList.addAll(loadWallpaperUseCase(categoryName, pageCount))
+            _wallpapers.value = wallpaperList
+            pageCount++
             _loading.value = false
         }
     }

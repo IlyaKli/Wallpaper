@@ -41,44 +41,53 @@ class DetailWallpaperFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.setWallpaperButton.isEnabled = false
-        binding.detailProgressBar.visibility = View.VISIBLE
+        setView()
+        setListener()
+    }
 
-        Glide
-            .with(binding.detailImageView)
-            .asBitmap()
-            .load(imageURL)
-            .listener(object : RequestListener<Bitmap> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    isFirstResource: Boolean,
-                ): Boolean {
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: Bitmap?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean,
-                ): Boolean {
-                    binding.detailProgressBar.visibility = View.GONE
-                    binding.setWallpaperButton.isEnabled = true
-                    return false
-                }
-            })
-            .into(binding.detailImageView)
-
+    private fun setListener() {
         binding.setWallpaperButton.setOnClickListener {
-            createIntent()
+            createWallpaperManagerIntent()
+        }
+    }
+
+    private fun setView() {
+        with(binding) {
+            setWallpaperButton.isEnabled = false
+            detailProgressBar.visibility = View.VISIBLE
+
+            Glide
+                .with(detailImageView)
+                .asBitmap()
+                .load(imageURL)
+                .listener(object : RequestListener<Bitmap> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        isFirstResource: Boolean,
+                    ): Boolean {
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Bitmap?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean,
+                    ): Boolean {
+                        detailProgressBar.visibility = View.GONE
+                        setWallpaperButton.isEnabled = true
+                        return false
+                    }
+                })
+                .into(detailImageView)
         }
     }
 
 
-    private fun createIntent() {
+    private fun createWallpaperManagerIntent() {
         val bitmap = binding.detailImageView.drawable.toBitmap()
 
         val myWallpaperManager =
@@ -92,9 +101,15 @@ class DetailWallpaperFragment : Fragment() {
 
     private fun getImageUri(context: Context, image: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = Images.Media.insertImage(context.contentResolver,
-            image, "Title", null)
+        image.compress(
+            Bitmap.CompressFormat.JPEG,
+            100,
+            bytes
+        )
+        val path = Images.Media.insertImage(
+            context.contentResolver,
+            image, "Title", null
+        )
         return Uri.parse(path)
     }
 }

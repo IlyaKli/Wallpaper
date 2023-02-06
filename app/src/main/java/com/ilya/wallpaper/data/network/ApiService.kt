@@ -6,13 +6,15 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("?key=33106230-b104905cd7ff74ed17e2229af")
+    @GET("?key=$API_KEY")
     suspend fun getWallpapers(
-        @Query(QUERY_PARAM_CATEGORY) category: String = ""
+        @Query(QUERY_PARAM_CATEGORY) category: String = "",
+        @Query(QUERY_PARAM_PAGE) page: Int,
     ): WallpaperResponseDto
 
     companion object {
-        private const val QUERY_PARAM_API_KEY = "api_key"
-        private const val QUERY_PARAM_CATEGORY	 = "category"
+        private const val API_KEY = "33106230-b104905cd7ff74ed17e2229af"
+        private const val QUERY_PARAM_CATEGORY = "category"
+        private const val QUERY_PARAM_PAGE = "page"
     }
 }

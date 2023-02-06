@@ -9,8 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ilya.wallpaper.databinding.FragmentWallpaperListBinding
+import com.ilya.wallpaper.domain.model.Wallpaper
 import com.ilya.wallpaper.presentation.adapter.wallpaper.WallpaperRAdapter
-import com.ilya.wallpaper.presentation.screen.WallpaperListViewModelFactory
+import com.ilya.wallpaper.presentation.view_model_factory.WallpaperListViewModelFactory
 
 class WallpaperListFragment : Fragment() {
 
@@ -38,22 +39,39 @@ class WallpaperListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setRecyclerView()
+        setObserve()
+        setListener()
+    }
+
+    private fun setObserve() {
+        with(viewModel) {
+            wallpapers.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
+            loading.observe(viewLifecycleOwner) {
+                binding.wallpaperSwipeRefreshLayout.isRefreshing = it
+            }
+        }
+    }
+
+    private fun setRecyclerView() {
         binding.wallpaperRecyclerView.adapter = adapter
-        viewModel.wallpapers.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-        viewModel.loading.observe(viewLifecycleOwner) {
-            binding.wallpaperSwipeRefreshLayout.isRefreshing = it
-        }
+    }
+
+    private fun setListener() {
         binding.wallpaperSwipeRefreshLayout.setOnRefreshListener {
             viewModel.loadWallpaper()
         }
         adapter.wallpaperClickListener = {
-            launchFragment(it.largeImageURL)
+            launchDetailWallpaperFragment(it.largeImageURL)
+        }
+        adapter.onReachEndListener = {
+            viewModel.loadWallpaper()
         }
     }
 
-    private fun launchFragment(imageURL: String) {
+    private fun launchDetailWallpaperFragment(imageURL: String) {
         findNavController().navigate(WallpaperListFragmentDirections
             .actionWallpaperListFragmentToDetailWallpaperFragment2(imageURL))
     }

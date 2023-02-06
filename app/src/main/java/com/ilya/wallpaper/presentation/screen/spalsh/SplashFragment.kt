@@ -30,7 +30,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         scope.launch {
             delay(1000)
-            launchFragment()
+            launchCategoryFragment()
         }
     }
 
@@ -39,7 +39,7 @@ class SplashFragment : Fragment() {
         scope.cancel()
     }
 
-    private fun launchFragment() {
+    private fun launchCategoryFragment() {
         findNavController().navigate(R.id.action_splashFragment_to_categoryFragment)
     }
 }

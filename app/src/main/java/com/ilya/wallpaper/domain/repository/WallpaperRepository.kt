@@ -4,5 +4,5 @@ import com.ilya.wallpaper.domain.model.Wallpaper
 
 interface WallpaperRepository {
 
-    suspend fun loadWallpaperUseCase(name: String): List<Wallpaper>
+    suspend fun loadWallpaperUseCase(categoryName: String, pageCount: Int): List<Wallpaper>
 }

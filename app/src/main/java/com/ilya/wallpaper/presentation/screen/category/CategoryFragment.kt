@@ -1,4 +1,4 @@
-package com.ilya.wallpaper.presentation.screen.main
+package com.ilya.wallpaper.presentation.screen.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.ilya.wallpaper.R
 import com.ilya.wallpaper.databinding.FragmentCategoryBinding
 import com.ilya.wallpaper.presentation.adapter.category.CategoryRAdapter
 
@@ -36,6 +35,7 @@ class CategoryFragment : Fragment() {
     }
 
     private fun launchFragment(categoryName: String) {
-        findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToWallpaperListFragment(categoryName))
+        findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToWallpaperListFragment(
+            categoryName))
     }
 }
