@@ -10,7 +10,7 @@ class WallpaperRepositoryImpl: WallpaperRepository {
     val apiService = ApiFactory.apiService
     val mapper = WallpaperMapper()
 
-    override suspend fun loadWallpaperUseCase(name: String): List<Wallpaper> {
-        return mapper.mapListDtoToEntity(apiService.getWallpapers().wallpapers)
+    override suspend fun loadWallpaperUseCase(categoryName: String, pageCount: Int): List<Wallpaper> {
+        return mapper.mapListDtoToEntity(apiService.getWallpapers(categoryName, pageCount).wallpapers)
     }
 }

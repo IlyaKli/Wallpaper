@@ -8,13 +8,11 @@ import com.ilya.wallpaper.domain.model.Category
 
 class CategoryRAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCallback()) {
 
-    var onReachEndListener: (() -> Unit)? = null
-
     var categoryClickListener: ((category: Category) -> Unit)? = null
 
     init {
         val categories = mutableListOf<Category>()
-        for (index in 0..19) {
+        for (index in 0..8) {
             var name = ""
             var russianName = ""
             when (index) {
@@ -53,50 +51,6 @@ class CategoryRAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffC
                 8 -> {
                     name = "religion"
                     russianName = "религия"
-                }
-                9 -> {
-                    name = "places"
-                    russianName = "места"
-                }
-                10 -> {
-                    name = "animals"
-                    russianName = "животные"
-                }
-                11 -> {
-                    name = "industry"
-                    russianName = "промышленность"
-                }
-                12 -> {
-                    name = "computer"
-                    russianName = "компьютер"
-                }
-                13 -> {
-                    name = "food"
-                    russianName = "еда"
-                }
-                14 -> {
-                    name = "sports"
-                    russianName = "спорт"
-                }
-                15 -> {
-                    name = "transportation"
-                    russianName = "транспорт"
-                }
-                16 -> {
-                    name = "travel"
-                    russianName = "путешествие"
-                }
-                17 -> {
-                    name = "buildings"
-                    russianName = "здания"
-                }
-                18 -> {
-                    name = "business"
-                    russianName = "бизнес"
-                }
-                19 -> {
-                    name = "music"
-                    russianName = "музыка"
                 }
             }
             categories.add(index, Category(index, name, russianName))

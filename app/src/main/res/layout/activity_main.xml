@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.fragment.app.FragmentContainerView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContainerView"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.main.MainActivity">
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/main_navigation"
+    tools:context=".presentation.screen.main.MainActivity"
+    tools:layout="@layout/fragment_splash" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/mainContainerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_splash" />
 
-</FrameLayout>
+

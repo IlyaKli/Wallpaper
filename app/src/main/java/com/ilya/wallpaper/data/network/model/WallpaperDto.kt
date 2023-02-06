@@ -6,7 +6,7 @@ class WallpaperDto (
     @SerializedName("id")
     val id: Int,
 
-    @SerializedName("previewURL")
+    @SerializedName("webformatURL")
     val webImageURL: String,
 
     @SerializedName("largeImageURL")

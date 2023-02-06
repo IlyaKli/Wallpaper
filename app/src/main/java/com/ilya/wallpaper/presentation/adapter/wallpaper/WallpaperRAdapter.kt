@@ -29,10 +29,14 @@ class WallpaperRAdapter : ListAdapter<Wallpaper, WallpaperViewHolder>(WallpaperD
         with(holder.binding) {
             Glide.with(wallpaperImageView)
                 .load(wallpaper.webImageURL)
+                .centerCrop()
                 .into(wallpaperImageView)
             wallpaperCardView.setOnClickListener {
                 wallpaperClickListener?.invoke(wallpaper)
             }
+        }
+        if (position == currentList.lastIndex - 6) {
+            onReachEndListener?.invoke()
         }
     }
 }
