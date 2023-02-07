@@ -22,10 +22,12 @@ class WallpaperListFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
     private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[WallpaperListViewModel::class.java] }
 
-    private val component by lazy { (requireActivity().application as WallpaperApplication).component }
+    private val component by lazy { (requireActivity().application as WallpaperApplication)
+        .component
+        .fragmentComponentFactory()
+        .create(categoryName)}
 
     private var _binding: FragmentWallpaperListBinding? = null
     private val binding: FragmentWallpaperListBinding
@@ -36,7 +38,6 @@ class WallpaperListFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         component.inject(this)
-        viewModel.loadWallpaper(categoryName)
     }
 
     override fun onCreateView(
@@ -71,13 +72,13 @@ class WallpaperListFragment : Fragment() {
 
     private fun setListener() {
         binding.wallpaperSwipeRefreshLayout.setOnRefreshListener {
-            viewModel.loadWallpaper(categoryName)
+            viewModel.loadWallpaper()
         }
         adapter.wallpaperClickListener = {
             launchDetailWallpaperFragment(it.largeImageURL)
         }
         adapter.onReachEndListener = {
-            viewModel.loadWallpaper(categoryName)
+            viewModel.loadWallpaper()
         }
     }
 
