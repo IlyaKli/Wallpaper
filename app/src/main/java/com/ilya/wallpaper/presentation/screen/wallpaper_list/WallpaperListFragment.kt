@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,7 +23,7 @@ class WallpaperListFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[WallpaperListViewModel::class.java] }
+    private val wallpaperListViewModel by lazy { ViewModelProvider(this, viewModelFactory)[WallpaperListViewModel::class.java] }
 
     private val component by lazy { (requireActivity().application as WallpaperApplication)
         .component
@@ -33,7 +34,7 @@ class WallpaperListFragment : Fragment() {
     private val binding: FragmentWallpaperListBinding
         get() = _binding ?: throw RuntimeException("FragmentWallpaperListBinding == null")
 
-    private val adapter by lazy { WallpaperRAdapter() }
+    private val listAdapter by lazy { WallpaperRAdapter() }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,29 +57,40 @@ class WallpaperListFragment : Fragment() {
     }
 
     private fun setObserve() {
-        with(viewModel) {
+        with(wallpaperListViewModel) {
             wallpapers.observe(viewLifecycleOwner) {
-                adapter.submitList(it)
+                listAdapter.submitList(it)
             }
             loading.observe(viewLifecycleOwner) {
                 binding.wallpaperSwipeRefreshLayout.isRefreshing = it
+            }
+            error.observe(viewLifecycleOwner) {
+                if (it == null) {
+                    return@observe
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        it,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
 
     private fun setRecyclerView() {
-        binding.wallpaperRecyclerView.adapter = adapter
+        binding.wallpaperRecyclerView.adapter = listAdapter
     }
 
     private fun setListener() {
         binding.wallpaperSwipeRefreshLayout.setOnRefreshListener {
-            viewModel.loadWallpaper()
+            wallpaperListViewModel.loadWallpaper()
         }
-        adapter.wallpaperClickListener = {
+        listAdapter.wallpaperClickListener = {
             launchDetailWallpaperFragment(it.largeImageURL)
         }
-        adapter.onReachEndListener = {
-            viewModel.loadWallpaper()
+        listAdapter.onReachEndListener = {
+            wallpaperListViewModel.loadWallpaper()
         }
     }
 

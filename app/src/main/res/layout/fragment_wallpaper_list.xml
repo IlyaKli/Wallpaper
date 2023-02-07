@@ -6,6 +6,7 @@
     android:id="@+id/wallpaperSwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#363438"
     tools:context=".presentation.screen.wallpaper_list.WallpaperListFragment">
 
     <androidx.recyclerview.widget.RecyclerView

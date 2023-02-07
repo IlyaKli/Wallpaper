@@ -16,7 +16,7 @@ class CategoryFragment : Fragment() {
     private val binding: FragmentCategoryBinding
         get() = _binding ?: throw RuntimeException("FragmentCategoryBinding == null")
 
-    private val adapter by lazy { CategoryRAdapter() }
+    private val listAdapter by lazy { CategoryRAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +28,8 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.categoryRecyclerView.adapter = adapter
-        adapter.categoryClickListener = {
+        binding.categoryRecyclerView.adapter = listAdapter
+        listAdapter.categoryClickListener = {
             launchFragment(it.name)
         }
     }
