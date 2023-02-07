@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#363438"
     tools:context=".presentation.screen.wallpaper_detail.DetailWallpaperFragment">
 
     <ImageView
@@ -16,21 +17,26 @@
         android:id="@+id/detailProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:progressTint="#221E1E"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/setWallpaperButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Установить обои"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="#221E1E"
+        android:text="@string/set_wallpaper_button_text"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:rippleColor="#7E7E7E" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
