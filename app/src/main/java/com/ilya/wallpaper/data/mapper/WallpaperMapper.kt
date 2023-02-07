@@ -1,9 +1,10 @@
-package com.ilya.wallpaper.data.network.mapper
+package com.ilya.wallpaper.data.mapper
 
 import com.ilya.wallpaper.data.network.model.WallpaperDto
 import com.ilya.wallpaper.domain.model.Wallpaper
+import javax.inject.Inject
 
-class WallpaperMapper {
+class WallpaperMapper @Inject constructor() {
 
     fun mapListDtoToEntity(dto: List<WallpaperDto>) =
         dto.map {
