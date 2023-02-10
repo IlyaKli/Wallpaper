@@ -4,12 +4,14 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore.Images
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -94,9 +96,20 @@ class DetailWallpaperFragment : Fragment() {
             WallpaperManager.getInstance(requireActivity())
 
         val myImageUri = getImageUri(requireActivity(), bitmap)
-        val intent = Intent(myWallpaperManager.getCropAndSetWallpaperIntent(myImageUri))
-        startActivity(intent)
 
+        try {
+            val intent = Intent(myWallpaperManager.getCropAndSetWallpaperIntent(myImageUri))
+            startActivity(intent)
+        } catch (e: Exception) {
+            myWallpaperManager.setBitmap(
+                bitmap
+            )
+            Toast.makeText(
+                requireContext(),
+                WALLPAPER_MANAGER_INTENT_ERROR_TOAST,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun getImageUri(context: Context, image: Bitmap): Uri? {
@@ -111,5 +124,9 @@ class DetailWallpaperFragment : Fragment() {
             image, "Title", null
         )
         return Uri.parse(path)
+    }
+
+    companion object {
+        private const val WALLPAPER_MANAGER_INTENT_ERROR_TOAST = "Невозможно настроить отображение картинки на экране данного устройства. Картинка будет обрезана по умолчанию."
     }
 }
